@@ -25,7 +25,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     // 运行后本地预览的服务器
     server: {
       // 是否开启https
-      https: false,
+      //   https: false,
       // 指定服务器应该监听哪个 IP 地址。 如果将此设置为 0.0.0.0 或者 true 将监听所有地址，包括局域网和公网地址。
       host: true,
       // 开发环境预览服务器端口
