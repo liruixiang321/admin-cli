@@ -3,9 +3,9 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
-} from "axios";
-import { ElMessage } from "element-plus";
-import { getStatusInfo } from "./status";
+} from 'axios';
+import { ElMessage } from 'element-plus';
+import { getStatusInfo } from './status';
 
 interface BaseResponse<T = any> {
   code: number | string;
@@ -14,10 +14,12 @@ interface BaseResponse<T = any> {
 }
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASEURL,
+  baseURL: import.meta.env.VITE_APP_USE_MOCK
+    ? import.meta.env.VITE_APP_MOCK_BASEURl
+    : import.meta.env.VITE_APP_API_BASEURL,
   timeout: 15000,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -27,7 +29,7 @@ service.interceptors.request.use(
   },
   (error: AxiosError) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 service.interceptors.response.use(
@@ -36,7 +38,7 @@ service.interceptors.response.use(
       return response.data;
     }
     ElMessage({
-      type: "error",
+      type: 'error',
       message: getStatusInfo(response.status),
       duration: 3000,
     });
@@ -46,7 +48,7 @@ service.interceptors.response.use(
     const { response } = error;
     if (response) {
       ElMessage({
-        type: "error",
+        type: 'error',
         message: getStatusInfo(response.status),
         duration: 3000,
       });
@@ -54,11 +56,11 @@ service.interceptors.response.use(
     }
 
     ElMessage({
-      type: "error",
-      message: "Network Error",
+      type: 'error',
+      message: 'Network Error',
       duration: 3000,
     });
-  }
+  },
 );
 
 export default service;
@@ -73,13 +75,13 @@ const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
         if (data.code != 0) {
           ElMessage({
             message: data.message,
-            type: "error",
+            type: 'error',
           });
           reject(data.message);
         } else {
           ElMessage({
             message: data.message,
-            type: "success",
+            type: 'success',
           }); // 此处返回data信息 也就是 api 中配置好的 Response类型
           resolve(data as T);
         }
@@ -90,11 +92,11 @@ const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
 export function get<T = any, U = any>(
   config: AxiosRequestConfig,
   url: string,
-  parms?: U
+  parms?: U,
 ): Promise<T> {
   return requestInstance({
     ...config,
-    method: "GET",
+    method: 'GET',
     url,
     params: parms,
   });
@@ -103,11 +105,11 @@ export function get<T = any, U = any>(
 export function post<T = any, U = any>(
   config: AxiosRequestConfig,
   url: string,
-  data: U
+  data: U,
 ): Promise<T> {
   return requestInstance({
     ...config,
-    method: "POST",
+    method: 'POST',
     url,
     data: data,
   });
@@ -116,11 +118,11 @@ export function post<T = any, U = any>(
 export function put<T = any, U = any>(
   config: AxiosRequestConfig,
   url: string,
-  parms: U
+  parms: U,
 ): Promise<T> {
   return requestInstance({
     ...config,
-    method: "PUT",
+    method: 'PUT',
     url,
     params: parms,
   });
@@ -129,11 +131,11 @@ export function put<T = any, U = any>(
 export function del<T = any, U = any>(
   config: AxiosRequestConfig,
   url: string,
-  data: U
+  data: U,
 ): Promise<T> {
   return requestInstance({
     ...config,
-    method: "DELETE",
+    method: 'DELETE',
     url,
     data: data,
   });
