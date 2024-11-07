@@ -10,7 +10,7 @@ import { getStatusInfo } from './status';
 interface BaseResponse<T = any> {
   code: number | string;
   data: T;
-  message: string;
+  msg: string;
 }
 
 const service = axios.create({
@@ -68,24 +68,22 @@ export default service;
 const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
   const conf = config;
   return new Promise((resolve, reject) => {
-    service
-      .request<any, AxiosResponse<BaseResponse>>(conf)
-      .then((res: AxiosResponse<BaseResponse>) => {
-        const data = res.data; // 如果data.code为错误代码返回message信息
-        if (data.code != 0) {
-          ElMessage({
-            message: data.message,
-            type: 'error',
-          });
-          reject(data.message);
-        } else {
-          ElMessage({
-            message: data.message,
-            type: 'success',
-          }); // 此处返回data信息 也就是 api 中配置好的 Response类型
-          resolve(data as T);
-        }
-      });
+    service.request<any, BaseResponse>(conf).then((res: BaseResponse) => {
+      // 业务状态
+      if (res.code != 0) {
+        ElMessage({
+          message: res.msg,
+          type: 'error',
+        });
+        reject(res.msg);
+      } else {
+        ElMessage({
+          message: res.msg,
+          type: 'success',
+        }); // 此处返回data信息 也就是 api 中配置好的 Response类型
+        resolve(res.data as T);
+      }
+    });
   });
 };
 

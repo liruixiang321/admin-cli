@@ -23,6 +23,12 @@ export default [
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off', // 允许any类型
+      'vue/multi-word-component-names': [
+        'error',
+        {
+          ignores: ['index', 'Header', 'tag', 'Tag'], //需要忽略的组件名
+        },
+      ],
     },
   },
 ];

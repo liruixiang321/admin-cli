@@ -1,4 +1,5 @@
-import { post } from "../http/request";
+import { post } from '@/http/request';
+
 export type loginRequest = {
   username: string;
   password: string;
@@ -12,9 +13,9 @@ export type loginResponse = {
   roles: [];
 };
 export const userLogin = async (data?: loginRequest) => {
-  return await post<loginResponse>({}, "/api/user/login", data);
+  return await post<loginResponse>({}, '/login', data);
 };
 
 export const refreshUserInfo = async (data?: reLoginRequest) => {
-  return await post<loginResponse>({}, "/api/user/refreshLogin", data);
+  return await post<loginResponse>({}, '/refreshLogin', data);
 };

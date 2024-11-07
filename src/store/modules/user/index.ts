@@ -1,18 +1,18 @@
-import { loginRequest, refreshUserInfo, userLogin } from "@/api/user";
-import pinia from "@/store";
-import { defineStore } from "pinia";
+import { loginRequest, refreshUserInfo, userLogin } from '@/api/user';
+import pinia from '@/store';
+import { defineStore } from 'pinia';
 
-export const useUserStoreHook = defineStore("userInfo", {
+export const useUserStoreHook = defineStore('userInfo', {
   state: () => ({
-    username: "admin",
-    password: "123456",
-    accessToken: "",
-    roles: ["admin"],
+    username: 'admin',
+    password: '123456',
+    accessToken: '',
+    roles: ['admin'],
   }),
   getters: {},
   actions: {
     storeUserLogin(data: loginRequest) {
-      userLogin(data).then((res) => {
+      return userLogin(data).then((res) => {
         this.username = res.username;
         this.accessToken = res.accessToken;
         this.roles = res.roles;
@@ -30,9 +30,9 @@ export const useUserStoreHook = defineStore("userInfo", {
     },
   },
   persist: {
-    key: "userInfo",
+    key: 'userInfo',
     storage: localStorage,
-    pick: ["username", "accessToken", "roles"],
+    pick: ['username', 'accessToken', 'roles'],
   },
 });
 export function useUserStore() {

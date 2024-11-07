@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@element-plus/icons-vue':
+    specifier: ^2.3.1
+    version: 2.3.1(vue@3.5.12)
   '@types/node':
     specifier: ^22.8.7
     version: 22.8.7
@@ -94,6 +97,9 @@ devDependencies:
   stylelint-config-prettier:
     specifier: ^9.0.5
     version: 9.0.5(stylelint@16.10.0)
+  stylelint-config-recommended-less:
+    specifier: ^3.0.1
+    version: 3.0.1(postcss@8.4.47)(stylelint@16.10.0)
   stylelint-config-standard:
     specifier: ^36.0.1
     version: 36.0.1(stylelint@16.10.0)
@@ -3866,6 +3872,22 @@ packages:
       stylelint: '>= 11.x < 15'
     dependencies:
       stylelint: 16.10.0(typescript@5.6.3)
+    dev: true
+
+  /stylelint-config-recommended-less@3.0.1(postcss@8.4.47)(stylelint@16.10.0):
+    resolution: {integrity: sha512-4vp9Z+W0KwxgPL4L3WxXtlMurfen0NXKFFxPHzDYn2s6WVS26Gg7jt3FIO4ZLM1x8WalCR02nwK2h0TH/mafBg==, tarball: https://registry.npmmirror.com/stylelint-config-recommended-less/-/stylelint-config-recommended-less-3.0.1.tgz}
+    peerDependencies:
+      postcss: ^8.3.3
+      stylelint: ^16.0.2
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+    dependencies:
+      postcss: 8.4.47
+      postcss-less: 6.0.0(postcss@8.4.47)
+      stylelint: 16.10.0(typescript@5.6.3)
+      stylelint-config-recommended: 14.0.1(stylelint@16.10.0)
+      stylelint-less: 3.0.1(postcss@8.4.47)(stylelint@16.10.0)
     dev: true
 
   /stylelint-config-recommended-vue@1.5.0(postcss-html@1.7.0)(stylelint@16.10.0):
