@@ -1,7 +1,9 @@
 <template>
   <div>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <Header></Header>
+      </el-header>
       <el-container>
         <el-aside width="200px">Aside</el-aside>
         <el-main>
@@ -12,6 +14,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import Header from './components/header.vue';
+</script>
 
 <style scoped></style>

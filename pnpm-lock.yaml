@@ -52,6 +52,9 @@ devDependencies:
   '@eslint/js':
     specifier: ^9.14.0
     version: 9.14.0
+  '@iconify-json/ep':
+    specifier: ^1.2.1
+    version: 1.2.1
   '@vitejs/plugin-vue':
     specifier: ^5.1.4
     version: 5.1.4(vite@5.4.10)(vue@3.5.12)
@@ -928,6 +931,12 @@ packages:
   /@humanwhocodes/retry@0.4.0:
     resolution: {integrity: sha512-xnRgu9DxZbkWak/te3fcytNyp8MTbuiZIaueg2rgEvBuN55n04nwLYLU9TX/VVlusc9L2ZNXi99nUFNkHXtr5g==, tarball: https://registry.npmmirror.com/@humanwhocodes/retry/-/retry-0.4.0.tgz}
     engines: {node: '>=18.18'}
+    dev: true
+
+  /@iconify-json/ep@1.2.1:
+    resolution: {integrity: sha512-m72jNpdlWI7Wd3TPs3RUd6nPiU1WWnWSvpOkM67HWNsyQrZDlTtLstLF9hAK8nhOxENi6ZO670A16mDvWJD9Cw==, tarball: https://registry.npmmirror.com/@iconify-json/ep/-/ep-1.2.1.tgz}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types@2.0.0:
@@ -4564,6 +4573,7 @@ packages:
     id: 'file:'
     name: admin-cli
     dependencies:
+      '@element-plus/icons-vue': 2.3.1(vue@3.5.12)
       '@types/node': 22.8.7
       '@types/nprogress': 0.2.3
       axios: 1.7.7
