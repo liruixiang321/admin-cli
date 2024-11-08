@@ -9,7 +9,7 @@ export default [
       if (body.username !== body.password) {
         return {
           code: 1,
-          message: '密码错误',
+          msg: '密码错误',
           data: {
             username: '',
             roles: [],
