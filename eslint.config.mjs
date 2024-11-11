@@ -6,7 +6,9 @@ import pluginVue from 'eslint-plugin-vue';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,vue}'] },
-
+  {
+    extends: ['./.eslintrc-auto-import.json'],
+  },
   {
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },

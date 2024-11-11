@@ -36,6 +36,12 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         enable: true,
       }),
       AutoImport({
+        imports: ['vue', 'vue-router'],
+        eslintrc: {
+          enabled: true,
+          filepath: './.eslintrc-auto-import.json',
+          globalsPropValue: true,
+        },
         resolvers: [ElementPlusResolver(), IconsResolver()],
         dts: fileURLToPath(new URL('./types/auto-import.d.ts', import.meta.url)),
       }),

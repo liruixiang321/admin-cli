@@ -16,6 +16,43 @@ export default {
       },
     },
     {
+      path: '/mutiRouter',
+      name: 'mutiRouter',
+      meta: {
+        title: '多级路由',
+        icon: 'mutiRouter',
+        isShow: true,
+      },
+      children: [
+        {
+          path: '/mutiRouter/router1',
+          name: 'router1',
+          meta: {
+            title: '路由1',
+            isShow: true,
+          },
+        },
+        {
+          path: '/mutiRouter/router2',
+          name: 'router2',
+          meta: {
+            title: '路由2',
+            isShow: true,
+          },
+          children: [
+            {
+              path: '/mutiRouter/router2/child1',
+              name: 'router2-1',
+              meta: {
+                title: '子路由2-1',
+                isShow: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       path: '/user',
       name: 'UserPage',
       component: () => import('@/views/user/index.vue'),
