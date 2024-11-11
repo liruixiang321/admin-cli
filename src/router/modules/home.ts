@@ -26,6 +26,16 @@ export default {
       },
     },
     {
+      path: '/role',
+      name: 'RolePage',
+      component: () => import('@/views/role/index.vue'),
+      meta: {
+        title: '角色管理',
+        icon: 'role',
+        isShow: true,
+      },
+    },
+    {
       path: '/auth',
       name: 'AuthPage',
       component: () => import('@/views/auth/index.vue'),

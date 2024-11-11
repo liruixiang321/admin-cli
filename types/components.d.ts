@@ -25,6 +25,7 @@ declare module 'vue' {
     ElTableClumn: typeof import('element-plus/es')['ElTableClumn']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTree: typeof import('element-plus/es')['ElTree']
     IEpSetting: typeof import('~icons/ep/setting')['default']
     IEpUser: typeof import('~icons/ep/user')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
