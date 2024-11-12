@@ -3,6 +3,9 @@ import { RouteRecordRaw } from 'vue-router';
 import { createRouter } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { filterMenu } from '@/utils/filterMenu';
+import { getBreadcrumbsByRoute } from '@/utils/getBreadcrumbsByRouter';
+import { useRouteStoreHooks } from '@/store/modules/router';
 
 const rootRouter: RouteRecordRaw = {
   path: '/',
@@ -43,6 +46,13 @@ const router = createRouter({
 const noNeedLoginRoutes = ['/login', '/about'];
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
+  const routerStore = useRouteStoreHooks();
+  let menuList = router.options.routes;
+  let filterMenuList = filterMenu(menuList as RouteRecordRaw[]);
+  console.log(to, 'wda', filterMenuList);
+  let breadList = getBreadcrumbsByRoute(to, filterMenuList);
+  console.log(breadList, 'breadList');
+  routerStore.setBreadcrumb(breadList);
   const userInfo = localStorage.getItem('userInfo');
   const userHasLogin = userInfo ? true : false;
   if (userHasLogin || noNeedLoginRoutes.includes(to.path)) next();

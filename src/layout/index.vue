@@ -43,6 +43,7 @@
   import Header from './components/Header.vue';
   import { ArrowRight } from '@element-plus/icons-vue';
   import { ElMessageBox } from 'element-plus';
+  import { filterMenu } from '@/utils/filterMenu';
 
   const router = useRouter();
   const route = useRoute();
@@ -57,16 +58,6 @@
   }
 
   //递归过滤掉meta.isShow为false的路由
-  function filterMenu(menu: RouteRecordRaw[]): RouteRecordRaw[] {
-    return menu
-      .filter((item) => item.meta?.isShow !== false)
-      .map((item) => {
-        if (item.children && item.children.length > 0) {
-          item.children = filterMenu(item.children);
-        }
-        return item;
-      });
-  }
 
   const activePath = route.path;
 </script>
