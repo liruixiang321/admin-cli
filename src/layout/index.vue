@@ -27,10 +27,9 @@
       </el-aside>
       <el-main>
         <el-breadcrumb class="bread" :separator-icon="ArrowRight">
-          <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-          <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-          <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-          <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+          <el-breadcrumb-item v-for="item in routerStore.breadcrumb">{{
+            item.meta.title
+          }}</el-breadcrumb-item>
         </el-breadcrumb>
         <router-view></router-view>
       </el-main>
@@ -44,7 +43,8 @@
   import { ArrowRight } from '@element-plus/icons-vue';
   import { ElMessageBox } from 'element-plus';
   import { filterMenu } from '@/utils/filterMenu';
-
+  import { useRouteStoreHooks } from '../store/modules/router/index';
+  const routerStore = useRouteStoreHooks();
   const router = useRouter();
   const route = useRoute();
   //   debugger;

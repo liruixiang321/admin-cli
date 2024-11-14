@@ -10,7 +10,9 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import IconsResolver from 'unplugin-icons/resolver';
 import ElementPlus from 'unplugin-element-plus/vite';
 import Icons from 'unplugin-icons/vite';
-
+import visualizer from 'rollup-plugin-visualizer';
+import vitePluginCompress from 'vite-plugin-compression';
+import { CreateHtmlPlugin } from 'vite-plugin-html';
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
   const root = process.cwd();
@@ -25,6 +27,30 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     publicDir: fileURLToPath(new URL('./public', import.meta.url)), // 无需处理的静态资源位置
     assetsInclude: fileURLToPath(new URL('./src/assets', import.meta.url)), // 需要处理的静态资源位置
     plugins: [
+      CreateHtmlPlugin({
+        inject: {
+          data: {
+            vueScript: `<script src="https://unpkg.com/vue@3"></script>`,
+            echartScript: `<script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>`,
+            jspdfScript: `<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>`,
+            xlsxScript: `<script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.5/dist/xlsx.full.min.js"></script>`,
+          },
+          // Inject data-theme to <html> tag
+          // Inject data-theme to <html> tag
+          //   mode: 'inject',
+          //   head: true,
+          //   preload: true,
+          //   prefetch: true,
+          //   preRender: true,
+          //   preConnect: true,
+          //   preFetch: true,
+        },
+      }),
+      vitePluginCompress({
+        threshold: 1024 * 20,
+        ext: '.gz',
+        algorithm: 'gzip',
+      }),
       // Vue模板文件编译插件
       vue(),
       // jsx文件编译插件
@@ -98,12 +124,25 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         input: {
           index: fileURLToPath(new URL('./index.html', import.meta.url)),
         },
+        experimentalLogSideEffects: true,
+        plugins: [visualizer({ open: true })],
         // 静态资源分类打包
         output: {
+          experimentalMinChunkSize: 20 * 1024,
+          manualChunks: (id) => {
+            // 将第三方库单独打包，很少使用，可以充分利用缓存并且避免打包到 index.js 中导致体积过大
+            if (id.includes('html2pdf')) {
+              return 'html2pdf';
+            }
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+            return 'index';
+          },
           format: 'esm',
-          chunkFileNames: 'static/js/[name]-[hash].js',
-          entryFileNames: 'static/js/[name]-[hash].js',
-          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+          chunkFileNames: 'static/js/[name]-[hash].js', // 拆分后的 chunk 文件名
+          entryFileNames: 'static/js/[name]-[hash].js', //  入口文件名
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]', //  静态资源文件名
         },
       },
     },
