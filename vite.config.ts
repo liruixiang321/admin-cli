@@ -12,7 +12,7 @@ import ElementPlus from 'unplugin-element-plus/vite';
 import Icons from 'unplugin-icons/vite';
 import visualizer from 'rollup-plugin-visualizer';
 import vitePluginCompress from 'vite-plugin-compression';
-import { CreateHtmlPlugin } from 'vite-plugin-html';
+// import { CreateHtmlPlugin } from 'vite-plugin-html';
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
   const root = process.cwd();
@@ -27,25 +27,25 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     publicDir: fileURLToPath(new URL('./public', import.meta.url)), // 无需处理的静态资源位置
     assetsInclude: fileURLToPath(new URL('./src/assets', import.meta.url)), // 需要处理的静态资源位置
     plugins: [
-      CreateHtmlPlugin({
-        inject: {
-          data: {
-            vueScript: `<script src="https://unpkg.com/vue@3"></script>`,
-            echartScript: `<script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>`,
-            jspdfScript: `<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>`,
-            xlsxScript: `<script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.5/dist/xlsx.full.min.js"></script>`,
-          },
-          // Inject data-theme to <html> tag
-          // Inject data-theme to <html> tag
-          //   mode: 'inject',
-          //   head: true,
-          //   preload: true,
-          //   prefetch: true,
-          //   preRender: true,
-          //   preConnect: true,
-          //   preFetch: true,
-        },
-      }),
+      //   CreateHtmlPlugin({
+      //     inject: {
+      //       data: {
+      //         vueScript: `<script src="https://unpkg.com/vue@3"></script>`,
+      //         echartScript: `<script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>`,
+      //         jspdfScript: `<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>`,
+      //         xlsxScript: `<script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.5/dist/xlsx.full.min.js"></script>`,
+      //       },
+      //       // Inject data-theme to <html> tag
+      //       // Inject data-theme to <html> tag
+      //       //   mode: 'inject',
+      //       //   head: true,
+      //       //   preload: true,
+      //       //   prefetch: true,
+      //       //   preRender: true,
+      //       //   preConnect: true,
+      //       //   preFetch: true,
+      //     },
+      //   }),
       vitePluginCompress({
         threshold: 1024 * 20,
         ext: '.gz',
