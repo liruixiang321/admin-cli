@@ -82,5 +82,26 @@ export default {
         isShow: true,
       },
     },
+    {
+        path: '/example',
+        name: 'ExamplePage',
+        meta: {
+          title: '组件实例',
+          icon: 'auth',
+          isShow: true,
+        },
+        children:[
+            {
+                path: '/example/button',
+                name: 'ButtonPage',
+                component: () => import('@/views/example/ElMessage.vue'),
+                meta: {
+                  title: '按钮',
+                  icon: 'auth',
+                  isShow: true,
+                },
+            },
+        ]
+      },
   ],
 };
