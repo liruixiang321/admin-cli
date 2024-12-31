@@ -63,7 +63,7 @@
     } else if (pageNum.value > pageTotalNum.value) {
       pageNum.value = 1;
     }
-    window.URL.revokeObjectURL(pdfSource.value);
+    window.URL.revokeObjectURL(pdfSource.value); //当你完成对对象 URL 的使用后，请调用此方法，让浏览器知道无需再保持对文件的引用。
     nextTick(() => {
       request();
     });
@@ -72,11 +72,15 @@
     source: pdfSource,
   });
 
-  // watch(() => pageNum.value, () => {
-  //   doc.value?.destroy()
-  // }, {
-  //   immediate: true
-  // })
+  watch(
+    () => pageNum.value,
+    () => {
+      doc.value?.destroy();
+    },
+    {
+      immediate: true,
+    },
+  );
 </script>
 
 <style scoped lang="scss">

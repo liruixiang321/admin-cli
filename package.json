@@ -25,6 +25,7 @@
     "express": "^4.21.2",
     "nprogress": "^0.2.0",
     "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "3.11.174",
     "pinia": "^2.2.5",
     "pinia-plugin-persistedstate": "^4.1.2",
     "vue": "^3.5.12",

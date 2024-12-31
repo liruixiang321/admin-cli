@@ -106,7 +106,17 @@ export default {
           name: 'PdfViewer',
           component: () => import('@/views/example/PdfView.vue'),
           meta: {
-            title: '按钮',
+            title: 'pdf预览',
+            icon: 'auth',
+            isShow: true,
+          },
+        },
+        {
+          path: '/example/PdfJSViewer',
+          name: 'PdfJSViewer',
+          component: () => import('@/views/example/PdfJSView.vue'),
+          meta: {
+            title: 'pdfJS实现预览',
             icon: 'auth',
             isShow: true,
           },
