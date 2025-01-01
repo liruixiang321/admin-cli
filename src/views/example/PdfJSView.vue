@@ -7,8 +7,8 @@
         :id="`pdfCanvas${page}`"
         style="border-bottom: 1px solid #d4d2d2"
       />
+      <div id="text-view"></div>
     </div>
-    <div id="text-view"></div>
 
     <iframe
       :src="`/PDF.js/web/viewer.html?file=${pdf}`"
@@ -22,6 +22,8 @@
 <script setup lang="ts">
   const pdfjsWorker = import('pdfjs-dist/build/pdf.worker.entry');
   import * as PDF from 'pdfjs-dist';
+  import { TextLayerBuilder } from 'pdfjs-dist/web/pdf_viewer';
+  import 'pdfjs-dist/web/pdf_viewer.css';
   import axios from 'axios';
   PDF.GlobalWorkerOptions.workerSrc = pdfjsWorker;
   const state = reactive({
@@ -59,8 +61,8 @@
       const viewport = page.getViewport({ scale: state.pdfScale });
       canvas.width = viewport.width * ratio;
       canvas.height = viewport.height * ratio;
-      canvas.style.width = '50%';
-      canvas.style.height = '50%';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
       state.pdfWidth = `${viewport.width}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
       // 将 PDF 页面渲染到 canvas 上下文中
@@ -68,7 +70,32 @@
         canvasContext: ctx,
         viewport,
       };
-      page.render(renderContext);
+      page
+        .render(renderContext)
+        .promise.then(() => {
+          return page.getTextContent();
+        })
+        .then((textContent: any) => {
+          const textLayerDiv = document.createElement('div');
+          textLayerDiv.setAttribute('class', 'textLayer');
+
+          // 设置容器的位置和宽高
+          const canvasRect = canvas.getBoundingClientRect();
+          textLayerDiv.style.position = 'absolute';
+          textLayerDiv.style.left = `${canvasRect.left}px`;
+          textLayerDiv.style.top = `${canvasRect.top}px`;
+          textLayerDiv.style.width = `${canvasRect.width}px`;
+          textLayerDiv.style.height = `${canvasRect.height}px`;
+          const pageDom = canvas.parentNode;
+          pageDom?.appendChild(textLayerDiv);
+          const textLayer = new TextLayerBuilder({
+            textLayerDiv: textLayerDiv,
+            pageIndex: page.pageIndex,
+            viewport: viewport,
+          });
+          textLayer.setTextContentSource(textContent);
+          textLayer.render(viewport);
+        });
       if (state.pdfPages > num) renderPage(num + 1);
     });
   }

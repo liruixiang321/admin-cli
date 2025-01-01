@@ -36,7 +36,7 @@
   .header {
     display: flex;
     width: 100%;
-    height: 60px;
+    height: 6.4vh;
     padding: 0 15px;
     box-shadow: 0 0 20px rgb(195 223 252 / 40%);
   }
